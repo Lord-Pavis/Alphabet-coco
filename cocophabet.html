@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Alphabet Translator</title>
+    <title>Traducteur d'Alphabet</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,30 +50,50 @@
         button:hover {
             background: #0056b3;
         }
+        .ultra-mega-secret {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 18px;
+            color: #fff;
+            background: linear-gradient(45deg, #ff0000, #ff7300, #ffeb00, #47ff00, #00ffee, #2b65ff, #8000ff);
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            animation: glow 2s infinite;
+        }
+        @keyframes glow {
+            0% { box-shadow: 0 0 10px #ff0000; }
+            25% { box-shadow: 0 0 10px #ff7300; }
+            50% { box-shadow: 0 0 10px #ffeb00; }
+            75% { box-shadow: 0 0 10px #47ff00; }
+            100% { box-shadow: 0 0 10px #8000ff; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Alphabet Translator</h1>
-        <label for="alphabet">Choose an alphabet:</label>
+        <h1>Traducteur d'Alphabet</h1>
+        <label for="alphabet">Choisissez un alphabet :</label>
         <select id="alphabet">
-            <option value="aeolian">Aeolian (Eoles)</option>
-            <option value="vahalian">Vahalian (Vahals)</option>
-            <option value="effluvian">Effluvian (Effluvéens)</option>
+            <option value="eolian">Éolien</option>
+            <option value="vahalian">Vahalian</option>
+            <option value="effluvian">Effluvian</option>
         </select>
 
         <div>
-            <textarea id="inputText" placeholder="Enter your text here..."></textarea>
-            <textarea id="outputText" placeholder="Translated text will appear here..." readonly></textarea>
+            <textarea id="inputText" placeholder="Entrez votre texte ici..."></textarea>
+            <textarea id="outputText" placeholder="Le texte traduit apparaîtra ici..." readonly></textarea>
         </div>
 
-        <button onclick="translateText()">Translate</button>
-        <button onclick="reverseTranslate()">Reverse Translate</button>
+        <button onclick="translateText()">Traduire</button>
+        <button onclick="reverseTranslate()">Traduction inverse</button>
+
+        <button class="ultra-mega-secret" onclick="window.open('https://discord.gg/coco-world', '_blank')">Ultra Mega Secret</button>
     </div>
 
     <script>
         const alphabets = {
-            aeolian: {
+            eolian: {
                 a: 'ᛟ', b: 'ᚦ', c: 'ᛇ', d: 'ᛞ', e: 'ᛒ', f: 'ᚱ',
                 g: 'ᛗ', h: 'ᛉ', i: 'ᚢ', j: 'ᛏ', k: 'ᚺ', l: 'ᛜ',
                 m: 'ᛈ', n: '𐡍', o: 'ᚨ', p: 'ᛖ', q: 'ᚷ', r: 'ᚹ',
@@ -81,10 +101,18 @@
                 y: 'ᚬ', z: '𐡔'
             },
             vahalian: {
-                // Add the Vahalian alphabet mapping here
+                a: '⍋', b: '⍒', c: '⍓', d: '⍔', e: '⍕', f: '⍖',
+                g: '⍗', h: '⍘', i: '⍙', j: '⍚', k: '⍛', l: '⍜',
+                m: '⍝', n: '⍞', o: '⍟', p: '⍠', q: '⍡', r: '⍢',
+                s: '⍣', t: '⍤', u: '⍥', v: '⍦', w: '⍧', x: '⍨',
+                y: '⍩', z: '⍪'
             },
             effluvian: {
-                // Add the Effluvian alphabet mapping here
+                a: '𐰀', b: '𐰁', c: '𐰂', d: '𐰃', e: '𐰄', f: '𐰅',
+                g: '𐰆', h: '𐰇', i: '𐰈', j: '𐰉', k: '𐰊', l: '𐰋',
+                m: '𐰌', n: '𐰍', o: '𐰎', p: '𐰏', q: '𐰐', r: '𐰑',
+                s: '𐰒', t: '𐰓', u: '𐰔', v: '𐰕', w: '𐰖', x: '𐰗',
+                y: '𐰘', z: '𐰙'
             }
         };
 
@@ -94,7 +122,7 @@
             const selectedAlphabet = alphabets[alphabet];
 
             if (!selectedAlphabet) {
-                alert("Selected alphabet is not yet implemented.");
+                alert("Alphabet sélectionné non encore implémenté.");
                 return;
             }
 
@@ -112,7 +140,7 @@
             const selectedAlphabet = alphabets[alphabet];
 
             if (!selectedAlphabet) {
-                alert("Selected alphabet is not yet implemented.");
+                alert("Alphabet sélectionné non encore implémenté.");
                 return;
             }
 
