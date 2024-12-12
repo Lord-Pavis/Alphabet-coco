@@ -75,9 +75,9 @@
         <h1>Traducteur d'Alphabet</h1>
         <label for="alphabet">Choisissez un alphabet :</label>
         <select id="alphabet">
-            <option value="eolian">Éolien</option>
-            <option value="vahalian">Vahalian</option>
-            <option value="effluvian">Effluvian</option>
+            <option value="eoles">Éoles</option>
+            <option value="vahals">Vahals</option>
+            <option value="effluveens">Effluvéens</option>
         </select>
 
         <div>
@@ -93,21 +93,21 @@
 
     <script>
         const alphabets = {
-            eolian: {
+            eoles: {
                 a: 'ᛟ', b: 'ᚦ', c: 'ᛇ', d: 'ᛞ', e: 'ᛒ', f: 'ᚱ',
                 g: 'ᛗ', h: 'ᛉ', i: 'ᚢ', j: 'ᛏ', k: 'ᚺ', l: 'ᛜ',
                 m: 'ᛈ', n: '𐡍', o: 'ᚨ', p: 'ᛖ', q: 'ᚷ', r: 'ᚹ',
                 s: 'ᛚ', t: 'ᚲ', u: 'ᛃ', v: 'ᚾ', w: 'ᚠ', x: 'ᛊ',
                 y: 'ᚬ', z: '𐡔'
             },
-            vahalian: {
-                a: '⍋', b: '⍒', c: '⍓', d: '⍔', e: '⍕', f: '⍖',
-                g: '⍗', h: '⍘', i: '⍙', j: '⍚', k: '⍛', l: '⍜',
-                m: '⍝', n: '⍞', o: '⍟', p: '⍠', q: '⍡', r: '⍢',
-                s: '⍣', t: '⍤', u: '⍥', v: '⍦', w: '⍧', x: '⍨',
-                y: '⍩', z: '⍪'
+            vahals: {
+                a: '⟆', b: '⟇', c: '⟈', d: '⟉', e: '⟊', f: '⟋',
+                g: '⟌', h: '⟍', i: '⟎', j: '⟏', k: '⟐', l: '⟑',
+                m: '⟒', n: '⟓', o: '⟔', p: '⟕', q: '⟖', r: '⟗',
+                s: '⟘', t: '⟙', u: '⟚', v: '⟛', w: '⟜', x: '⟝',
+                y: '⟞', z: '⟟'
             },
-            effluvian: {
+            effluveens: {
                 a: '𐰀', b: '𐰁', c: '𐰂', d: '𐰃', e: '𐰄', f: '𐰅',
                 g: '𐰆', h: '𐰇', i: '𐰈', j: '𐰉', k: '𐰊', l: '𐰋',
                 m: '𐰌', n: '𐰍', o: '𐰎', p: '𐰏', q: '𐰐', r: '𐰑',
@@ -126,7 +126,9 @@
                 return;
             }
 
-            const translatedText = inputText.split('').map(char => {
+            const reversedWords = inputText.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+
+            const translatedText = reversedWords.split('').map(char => {
                 const lowerChar = char.toLowerCase();
                 return selectedAlphabet[lowerChar] || char;
             }).join('');
@@ -152,7 +154,9 @@
                 return reversedAlphabet[char] || char;
             }).join('');
 
-            document.getElementById("inputText").value = originalText;
+            const restoredWords = originalText.split(' ').map(word => word.split('').reverse().join('')).join(' ');
+
+            document.getElementById("inputText").value = restoredWords;
         }
     </script>
 </body>
