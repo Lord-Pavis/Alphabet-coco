@@ -183,11 +183,25 @@ body.ultra-dark-mode {
     }
 }
 
+#minecraft-head {
+  cursor: pointer;
+  width: 100px; /* Ajuste la taille */
+}
+
+#message, #secret {
+  font-size: 16px;
+  color: red;
+  font-weight: bold;
+}
+
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Traducteur d'Alphabet</h1>
+<img id="minecraft-head" src="PavisHead.png" alt="Tête Minecraft" />
+<div id="message" style="display: none;">Arrête de taper !</div>
+<div id="secret" style="display: none;">Appuie sur Ctrl + Alt + U pour activer le mode ultra sombre.</div>
         <label for="alphabet">Choisissez un alphabet :</label>
         <select id="alphabet" onchange="playSoundAndHighlight()">
             <option value="eoles">Eoles</option>
@@ -212,7 +226,21 @@ body.ultra-dark-mode {
     <audio id="effluveensSound" src="effluveens.mp3"></audio>
 
     <script>
+let clickCount = 0;
 
+const head = document.getElementById("minecraft-head");
+const message = document.getElementById("message");
+const secret = document.getElementById("secret");
+
+head.addEventListener("click", function() {
+  clickCount++;
+  
+  if (clickCount === 5) {  // Par exemple, après 5 clics
+    message.style.display = "block"; // Afficher le message
+  } else if (clickCount > 5) {
+    secret.style.display = "block"; // Afficher le secret
+  }
+})
         function toggleTheme() {
     const body = document.body;
     const themeToggleButton = document.querySelector('.theme-toggle');
