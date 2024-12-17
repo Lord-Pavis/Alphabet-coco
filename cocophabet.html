@@ -110,6 +110,44 @@
             0% { background-color: yellow; }
             100% { background-color: transparent; }
         }
+
+/* Effets visuels spécifiques à chaque langue */
+body.eoles-effect {
+    animation: eolesBackground 5s infinite alternate;
+    background-color: #e8f7ff;
+    background-image: radial-gradient(circle, #a1caff, #ffffff);
+}
+
+body.vahals-effect {
+    animation: vahalsBackground 5s infinite alternate;
+    background-color: #fff7e8;
+    background-image: radial-gradient(circle, #ffe8a1, #ffffff);
+}
+
+body.effluveens-effect {
+    animation: effluveensBackground 5s infinite alternate;
+    background-color: #e8ffe8;
+    background-image: radial-gradient(circle, #a1ffb7, #ffffff);
+}
+
+/* Animation pour Eoles */
+@keyframes eolesBackground {
+    0% { background-color: #a1caff; }
+    100% { background-color: #e8f7ff; }
+}
+
+/* Animation pour Vahals */
+@keyframes vahalsBackground {
+    0% { background-color: #ffe8a1; }
+    100% { background-color: #fff7e8; }
+}
+
+/* Animation pour Effluvéens */
+@keyframes effluveensBackground {
+    0% { background-color: #a1ffb7; }
+    100% { background-color: #e8ffe8; }
+}
+
     </style>
 </head>
 <body>
@@ -139,6 +177,22 @@
     <audio id="effluveensSound" src="effluveens.mp3"></audio>
 
     <script>
+        
+        function toggleTheme() {
+    const body = document.body;
+    const themeToggleButton = document.querySelector('.theme-toggle');
+
+    // Ajouter ou supprimer la classe 'dark-mode' sur le body
+    body.classList.toggle('dark-mode');
+
+    // Mettre à jour le texte du bouton en fonction du thème actuel
+    if (body.classList.contains('dark-mode')) {
+        themeToggleButton.textContent = 'Basculer en mode clair';
+    } else {
+        themeToggleButton.textContent = 'Basculer en mode sombre';
+    }
+}
+
         const alphabets = {
             eoles: {
                 a: 'ᛟ', b: 'ᚦ', c: 'ᛇ', d: 'ᛞ', e: 'ᛒ', f: 'ᚱ',
@@ -206,22 +260,35 @@
             document.getElementById("inputText").value = restoredWords;
         }
         
-    function playSoundAndHighlight() {
+        let currentlyPlayingAudio = null; // Suivre le son en cours de lecture
+
+function playSoundAndHighlight() {
     const selectedAlphabet = document.getElementById("alphabet").value;
     const container = document.querySelector('.container');
-    const audio = document.getElementById(`${selectedAlphabet}Sound`);
+    const newAudio = document.getElementById(`${selectedAlphabet}Sound`);
 
-    // Jouer le son associé
-    if (audio) {
-        audio.currentTime = 0; // Réinitialise le son
-        audio.play();
+    // Stopper le son précédent s'il y en a un
+    if (currentlyPlayingAudio && !currentlyPlayingAudio.paused) {
+        currentlyPlayingAudio.pause();
+        currentlyPlayingAudio.currentTime = 0; // Réinitialise le son
     }
 
-    // Ajout d'une animation visuelle
+    // Jouer le nouveau son
+    if (newAudio) {
+        newAudio.currentTime = 0;
+        newAudio.play();
+        currentlyPlayingAudio = newAudio; // Mettre à jour le son actuellement joué
+    }
+
+    // Appliquer l'effet visuel à l'arrière-plan
+    document.body.className = ''; // Supprime les anciennes classes d'effet
+    document.body.classList.add(`${selectedAlphabet}-effect`);
+
+    // Ajout d'une animation unique sur le conteneur pour signaler le changement
     container.classList.add('language-highlight');
     setTimeout(() => {
         container.classList.remove('language-highlight');
-    }, 1000); // L'animation dure 1 seconde
+    }, 1000); // Animation unique dure 1 seconde
 }
 
     </script>
