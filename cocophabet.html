@@ -12,6 +12,7 @@
             background-color: #f4f4f9;
             color: #333;
             text-align: center;
+            transition: background-color 0.3s, color 0.3s;
         }
         .container {
             margin: 20px auto;
@@ -20,6 +21,7 @@
             background: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s;
         }
         textarea {
             width: 100%;
@@ -46,6 +48,7 @@
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            transition: background 0.3s;
         }
         button:hover {
             background: #0056b3;
@@ -68,14 +71,53 @@
             75% { box-shadow: 0 0 10px #47ff00; }
             100% { box-shadow: 0 0 10px #8000ff; }
         }
+        .theme-toggle {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #333;
+            background: #ccc;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background 0.3s, color 0.3s;
+        }
+        .theme-toggle:hover {
+            background: #bbb;
+        }
+        .dark-mode {
+            background-color: #222;
+            color: #ddd;
+        }
+        .dark-mode .container {
+            background: #333;
+        }
+        .dark-mode button {
+            background: #444;
+            color: #ddd;
+        }
+        .dark-mode button:hover {
+            background: #555;
+        }
+        .dark-mode .theme-toggle {
+            background: #555;
+            color: #ddd;
+        }
+        .language-highlight {
+            animation: highlight 1s;
+        }
+        @keyframes highlight {
+            0% { background-color: yellow; }
+            100% { background-color: transparent; }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <h1>Traducteur d'Alphabet</h1>
         <label for="alphabet">Choisissez un alphabet :</label>
-        <select id="alphabet">
-            <option value="eoles">Éoles</option>
+        <select id="alphabet" onchange="playSoundAndHighlight()">
+            <option value="eoles">Eoles</option>
             <option value="vahals">Vahals</option>
             <option value="effluveens">Effluvéens</option>
         </select>
@@ -88,8 +130,13 @@
         <button onclick="translateText()">Traduire</button>
         <button onclick="reverseTranslate()">Traduction inverse</button>
 
-        <button class="ultra-mega-secret" onclick="window.open('https://discord.gg/coco-world', '_blank')">Ultra Mega Secret</button>
+        <button class="ultra-mega-secret" onclick="window.open('https://fluxlink.eu/cococlub', '_blank')">Ultra Mega Secret</button>
+        <button class="theme-toggle" onclick="toggleTheme()">Basculer mode sombre/clair</button>
     </div>
+
+    <audio id="eolesSound" src="eoles.mp3"></audio>
+    <audio id="vahalsSound" src="vahals.mp3"></audio>
+    <audio id="effluveensSound" src="effluveens.mp3"></audio>
 
     <script>
         const alphabets = {
@@ -101,11 +148,11 @@
                 y: 'ᚬ', z: '𐡔'
             },
             vahals: {
-                a: '⟆', b: '⟇', c: '⟈', d: '⟉', e: '⟊', f: '⟋',
-                g: '⟌', h: '⟍', i: '⟎', j: '⟏', k: '⟐', l: '⟑',
-                m: '⟒', n: '⟓', o: '⟔', p: '⟕', q: '⟖', r: '⟗',
-                s: '⟘', t: '⟙', u: '⟚', v: '⟛', w: '⟜', x: '⟝',
-                y: '⟞', z: '⟟'
+                a: '⍋', b: '⍒', c: '⍓', d: '⍔', e: '⍕', f: '⍖',
+                g: '⍗', h: '⍘', i: '⍙', j: '⍚', k: '⍛', l: '⍜',
+                m: '⍝', n: '⍞', o: '⍟', p: '⍠', q: '⍡', r: '⍢',
+                s: '⍣', t: '⍤', u: '⍥', v: '⍦', w: '⍧', x: '⍨',
+                y: '⍩', z: '⍪'
             },
             effluveens: {
                 a: '𐰀', b: '𐰁', c: '𐰂', d: '𐰃', e: '𐰄', f: '𐰅',
@@ -126,12 +173,12 @@
                 return;
             }
 
-            const reversedWords = inputText.split(' ').map(word => word.split('').reverse().join('')).join(' ');
-
-            const translatedText = reversedWords.split('').map(char => {
-                const lowerChar = char.toLowerCase();
-                return selectedAlphabet[lowerChar] || char;
-            }).join('');
+            const translatedText = inputText.split(' ').map(word => {
+                return word.split('').reverse().map(char => {
+                    const lowerChar = char.toLowerCase();
+                    return selectedAlphabet[lowerChar] || char;
+                }).join('');
+            }).join(' ');
 
             document.getElementById("outputText").value = translatedText;
         }
@@ -158,6 +205,25 @@
 
             document.getElementById("inputText").value = restoredWords;
         }
+        
+    function playSoundAndHighlight() {
+    const selectedAlphabet = document.getElementById("alphabet").value;
+    const container = document.querySelector('.container');
+    const audio = document.getElementById(`${selectedAlphabet}Sound`);
+
+    // Jouer le son associé
+    if (audio) {
+        audio.currentTime = 0; // Réinitialise le son
+        audio.play();
+    }
+
+    // Ajout d'une animation visuelle
+    container.classList.add('language-highlight');
+    setTimeout(() => {
+        container.classList.remove('language-highlight');
+    }, 1000); // L'animation dure 1 seconde
+}
+
     </script>
 </body>
 </html>
