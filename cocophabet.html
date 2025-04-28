@@ -244,6 +244,15 @@ body.ultra-dark-mode {
 <audio id="sound3" src="Villager_idle3.ogg"></audio>
 <audio id="sound4" src="Villager_trade1.ogg"></audio>
 
+<!-- Conteneur pour le texte "Son" et la barre de volume -->
+<div style="position: fixed; right: 10px; top: 20%; transform: translateY(-50%); display: flex; flex-direction: column; align-items: center;">
+    <!-- Texte "Son" au-dessus de la barre -->
+    <div id="volumeLabel" style="font-size: 18px; font-weight: bold; margin-bottom: 10px;">Son</div>
+    
+    <!-- Slider pour régler le volume -->
+    <input type="range" id="volumeControl" min="0" max="1" step="0.01" value="1" onchange="adjustVolume()" style="writing-mode: bt-lr; height: 200px;">
+</div>
+
     <script>
 let clickCount = 0;
 
@@ -434,6 +443,39 @@ function removeStarryBackground() {
     }
 }
 
+    // Fonction pour ajuster le volume
+    function adjustVolume() {
+        const volume = document.getElementById("volumeControl").value;
+        
+        // Appliquer le volume à tous les sons
+        document.getElementById("eolesSound").volume = volume;
+        document.getElementById("vahalsSound").volume = volume;
+        document.getElementById("effluveensSound").volume = volume;
+
+        // Appliquer le volume aux sons de villager
+        document.getElementById("sound1").volume = volume;
+        document.getElementById("sound2").volume = volume;
+        document.getElementById("sound3").volume = volume;
+        document.getElementById("sound4").volume = volume;
+    }
+    
+    function toggleTheme() {
+    const body = document.body;
+    const themeToggleButton = document.querySelector('.theme-toggle');
+    const volumeLabel = document.getElementById('volumeLabel');
+
+    // Ajouter ou supprimer la classe 'dark-mode' sur le body
+    body.classList.toggle('dark-mode');
+
+    // Mettre à jour le texte du bouton en fonction du thème actuel
+    if (body.classList.contains('dark-mode')) {
+        themeToggleButton.textContent = 'Basculer en mode clair';
+        volumeLabel.style.color = 'white'; // Couleur blanche pour le mode sombre
+    } else {
+        themeToggleButton.textContent = 'Basculer en mode sombre';
+        volumeLabel.style.color = 'black'; // Couleur noire pour le mode clair
+    }
+}
     </script>
 </body>
 </html>
