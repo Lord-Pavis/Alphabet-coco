@@ -112,38 +112,38 @@
         }
 
 /* Effets visuels spécifiques à chaque langue */
-body.eoles-effect {
-    animation: eolesBackground 5s infinite alternate;
+body.Céphyriens-effect {
+    animation: CéphyriensBackground 5s infinite alternate;
     background-color: #e8f7ff;
     background-image: radial-gradient(circle, #a1caff, #ffffff);
 }
 
-body.vahals-effect {
-    animation: vahalsBackground 5s infinite alternate;
+body.Fralkyr-effect {
+    animation: FralkyrBackground 5s infinite alternate;
     background-color: #fff7e8;
     background-image: radial-gradient(circle, #ffe8a1, #ffffff);
 }
 
-body.effluveens-effect {
-    animation: effluveensBackground 5s infinite alternate;
+body.Nauvirs-effect {
+    animation: NauvirsBackground 5s infinite alternate;
     background-color: #e8ffe8;
     background-image: radial-gradient(circle, #a1ffb7, #ffffff);
 }
 
-/* Animation pour Eoles */
-@keyframes eolesBackground {
+/* Animation pour Céphyriens */
+@keyframes CéphyriensBackground {
     0% { background-color: #a1caff; }
     100% { background-color: #e8f7ff; }
 }
 
-/* Animation pour Vahals */
-@keyframes vahalsBackground {
+/* Animation pour Fralkyr */
+@keyframes FralkyrBackground {
     0% { background-color: #ffe8a1; }
     100% { background-color: #fff7e8; }
 }
 
 /* Animation pour Effluvéens */
-@keyframes effluveensBackground {
+@keyframes NauvirsBackground {
     0% { background-color: #a1ffb7; }
     100% { background-color: #e8ffe8; }
 }
@@ -214,9 +214,9 @@ body.ultra-dark-mode {
         <h1>Traducteur d'Alphabet</h1>
         <label for="alphabet">Choisissez un alphabet :</label>
         <select id="alphabet" onchange="playSoundAndHighlight()">
-            <option value="eoles">Eoles</option>
-            <option value="vahals">Vahals</option>
-            <option value="effluveens">Effluvéens</option>
+            <option value="Céphyriens">Céphyriens</option>
+            <option value="Fralkyr">Fralkyr</option>
+            <option value="Nauvirs">Effluvéens</option>
         </select>
 
         <div>
@@ -231,9 +231,9 @@ body.ultra-dark-mode {
         <button class="theme-toggle" onclick="toggleTheme()">Basculer mode sombre/clair</button>
     </div>
 
-    <audio id="eolesSound" src="eoles.mp3"></audio>
-    <audio id="vahalsSound" src="vahals.mp3"></audio>
-    <audio id="effluveensSound" src="effluveens.mp3"></audio>
+    <audio id="CéphyriensSound" src="Céphyriens.mp3"></audio>
+    <audio id="FralkyrSound" src="Fralkyr.mp3"></audio>
+    <audio id="NauvirsSound" src="Nauvirs.mp3"></audio>
 
     <img id="minecraft-head" src="PavisHead.png" alt="Tête Minecraft" />
 <div id="message" style="display: none;">Arrête de taper !</div>
@@ -308,21 +308,21 @@ head.addEventListener("click", function() {
 }
 
         const alphabets = {
-            eoles: {
+            Céphyriens: {
                 a: 'ᛟ', b: 'ᚦ', c: 'ᛇ', d: 'ᛞ', e: 'ᛒ', f: 'ᚱ',
                 g: 'ᛗ', h: 'ᛉ', i: 'ᚢ', j: 'ᛏ', k: 'ᚺ', l: 'ᛜ',
                 m: 'ᛈ', n: '𐡍', o: 'ᚨ', p: 'ᛖ', q: 'ᚷ', r: 'ᚹ',
                 s: 'ᛚ', t: 'ᚲ', u: 'ᛃ', v: 'ᚾ', w: 'ᚠ', x: 'ᛊ',
                 y: 'ᚬ', z: '𐡔'
             },
-            vahals: {
+            Fralkyr: {
                 a: '⍋', b: '⍒', c: '⍓', d: '⍔', e: '⍕', f: '⍖',
                 g: '⍗', h: '⍘', i: '⍙', j: '⍚', k: '⍛', l: '⍜',
                 m: '⍝', n: '⍞', o: '⍟', p: '⍠', q: '⍡', r: '⍢',
                 s: '⍣', t: '⍤', u: '⍥', v: '⍦', w: '⍧', x: '⍨',
                 y: '⍩', z: '⍪'
             },
-            effluveens: {
+            Nauvirs: {
                 a: '𐰀', b: '𐰁', c: '𐰂', d: '𐰃', e: '𐰄', f: '𐰅',
                 g: '𐰆', h: '𐰇', i: '𐰈', j: '𐰉', k: '𐰊', l: '𐰋',
                 m: '𐰌', n: '𐰍', o: '𐰎', p: '𐰏', q: '𐰐', r: '𐰑',
@@ -448,9 +448,9 @@ function removeStarryBackground() {
         const volume = document.getElementById("volumeControl").value;
         
         // Appliquer le volume à tous les sons
-        document.getElementById("eolesSound").volume = volume;
-        document.getElementById("vahalsSound").volume = volume;
-        document.getElementById("effluveensSound").volume = volume;
+        document.getElementById("CéphyriensSound").volume = volume;
+        document.getElementById("FralkyrSound").volume = volume;
+        document.getElementById("NauvirsSound").volume = volume;
 
         // Appliquer le volume aux sons de villager
         document.getElementById("sound1").volume = volume;
