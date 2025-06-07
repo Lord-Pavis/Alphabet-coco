@@ -123,22 +123,21 @@ body.Céphyriens-effect {
     background-image: radial-gradient(circle, #a1caff, #ffffff);
 }
 
-body.Fralkyr-effect {
-    animation: FralkyrBackground 5s infinite alternate;
-    background-color: #fff7e8;
-    background-image: radial-gradient(circle, #ffe8a1, #ffffff);
+/* Animation Céphyriens - mode sombre */
+body.dark-mode.Céphyriens-effect {
+    animation: CéphyriensBackgroundDark 5s infinite alternate;
+    background-color: #11151a;
+    background-image: radial-gradient(circle, #2a3a4f, #000000);
 }
 
-body.Nauvirs-effect {
-    animation: NauvirsBackground 5s infinite alternate;
-    background-color: #e8ffe8;
-    background-image: radial-gradient(circle, #a1ffb7, #ffffff);
-}
-
-/* Animation pour Céphyriens */
 @keyframes CéphyriensBackground {
     0% { background-color: #a1caff; }
     100% { background-color: #e8f7ff; }
+}
+
+@keyframes CéphyriensBackgroundDark {
+    0% { background-color: #2a3a4f; }
+    100% { background-color: #11151a; }
 }
 
 /* Animation pour Fralkyr */
@@ -147,10 +146,34 @@ body.Nauvirs-effect {
     100% { background-color: #fff7e8; }
 }
 
+/* Animation Fralkyr - mode sombre */
+body.dark-mode.Fralkyr-effect {
+    animation: FralkyrBackgroundDark 5s infinite alternate;
+    background-color: #1a1811;
+    background-image: radial-gradient(circle, #4f3a2a, #000000);
+}
+
+@keyframes FralkyrBackgroundDark {
+    0% { background-color: #4f3a2a; }
+    100% { background-color: #1a1811; }
+}
+
 /* Animation pour Nauvirs */
 @keyframes NauvirsBackground {
     0% { background-color: #a1ffb7; }
     100% { background-color: #e8ffe8; }
+}
+
+/* Animation Nauvirs - mode sombre */
+body.dark-mode.Nauvirs-effect {
+    animation: NauvirsBackgroundDark 5s infinite alternate;
+    background-color: #112a1a;
+    background-image: radial-gradient(circle, #2a4f3a, #000000);
+}
+
+@keyframes NauvirsBackgroundDark {
+    0% { background-color: #2a4f3a; }
+    100% { background-color: #112a1a; }
 }
 
 /* Mode ultra-sombre */
@@ -235,6 +258,30 @@ body.ultra-dark-mode {
 #copyBtn:active {
     transform: scale(0.95);
 }
+
+/* Céphyriens */
+body.Céphyriens-effect .container {
+    box-shadow: 0 0 40px 0 #a1caff88;
+}
+body.dark-mode.Céphyriens-effect .container {
+    box-shadow: 0 0 40px 0 #2a3a4fcc;
+}
+
+/* Fralkyr */
+body.Fralkyr-effect .container {
+    box-shadow: 0 0 40px 0 #ffe8a188;
+}
+body.dark-mode.Fralkyr-effect .container {
+    box-shadow: 0 0 40px 0 #4f3a2acc;
+}
+
+/* Nauvirs */
+body.Nauvirs-effect .container {
+    box-shadow: 0 0 40px 0 #a1ffb788;
+}
+body.dark-mode.Nauvirs-effect .container {
+    box-shadow: 0 0 40px 0 #2a4f3acc;
+}
     </style>
 </head>
 <body>
@@ -247,7 +294,7 @@ body.ultra-dark-mode {
             <option value="Nauvirs">Nauvirs</option>
         </select>
 
-        <!-- Aperçu visuel des alphabets -->
+        <!-- Aperçu visuel des alphabets il est cool -->
 <div id="alphabetPreview" style="margin: 20px auto; max-width: 600px;"></div>
 
 <div>
@@ -416,25 +463,39 @@ function playSoundAndHighlight() {
     // Stopper le son précédent s'il y en a un
     if (currentlyPlayingAudio && !currentlyPlayingAudio.paused) {
         currentlyPlayingAudio.pause();
-        currentlyPlayingAudio.currentTime = 0; // Réinitialise le son
+        currentlyPlayingAudio.currentTime = 0;
     }
 
     // Jouer le nouveau son
     if (newAudio) {
         newAudio.currentTime = 0;
         newAudio.play();
-        currentlyPlayingAudio = newAudio; // Mettre à jour le son actuellement joué
+        currentlyPlayingAudio = newAudio;
     }
 
-    // Appliquer l'effet visuel à l'arrière-plan
-    document.body.className = ''; // Supprime les anciennes classes d'effet
-    document.body.classList.add(`${selectedAlphabet}-effect`);
+    // Récupérer les classes de mode sombre/ultra sombre si présentes
+    const body = document.body;
+    const keepDark = body.classList.contains('dark-mode');
+    const keepUltraDark = body.classList.contains('ultra-dark-mode');
 
-    // Ajout d'une animation unique sur le conteneur pour signaler le changement
+    // Supprimer toutes les classes d'effet de langue
+    body.classList.remove('Céphyriens-effect', 'Fralkyr-effect', 'Nauvirs-effect');
+
+    // Réappliquer les classes de mode sombre/ultra sombre si besoin
+    body.className = body.className // conserve les autres classes
+        .replace(/\b(Céphyriens-effect|Fralkyr-effect|Nauvirs-effect)\b/g, '')
+        .trim();
+
+    // Ajouter la nouvelle classe d'effet de langue
+    body.classList.add(`${selectedAlphabet}-effect`);
+    if (keepDark) body.classList.add('dark-mode');
+    if (keepUltraDark) body.classList.add('ultra-dark-mode');
+
+    // Animation sur le conteneur
     container.classList.add('language-highlight');
     setTimeout(() => {
         container.classList.remove('language-highlight');
-    }, 1000); // Animation unique dure 1 seconde
+    }, 1000);
 }
 
 document.addEventListener('keydown', (event) => {
