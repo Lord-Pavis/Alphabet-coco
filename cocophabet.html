@@ -219,10 +219,14 @@ body.ultra-dark-mode {
             <option value="Nauvirs">Nauvirs</option>
         </select>
 
-        <div>
-            <textarea id="inputText" placeholder="Entrez votre texte ici..."></textarea>
-            <textarea id="outputText" placeholder="Le texte traduit apparaîtra ici..." readonly></textarea>
-        </div>
+        <!-- Aperçu visuel des alphabets -->
+<div id="alphabetPreview" style="margin: 20px auto; max-width: 600px;"></div>
+
+<div>
+    <textarea id="inputText" placeholder="Entrez votre texte ici..."></textarea>
+    <textarea id="outputText" placeholder="Le texte traduit apparaîtra ici..." readonly></textarea>
+    <button id="copyBtn" type="button" style="margin-top: 5px;">Copier le texte traduit</button>
+</div>
 
         <button onclick="translateText()">Traduire</button>
         <button onclick="reverseTranslate()">Traduction inverse</button>
@@ -476,6 +480,41 @@ function removeStarryBackground() {
         volumeLabel.style.color = 'black'; // Couleur noire pour le mode clair
     }
 }
+
+// Aperçu visuel des alphabets
+function updateAlphabetPreview() {
+    const alphabet = document.getElementById("alphabet").value;
+    const selectedAlphabet = alphabets[alphabet];
+    const previewDiv = document.getElementById("alphabetPreview");
+    if (!selectedAlphabet) {
+        previewDiv.innerHTML = "";
+        return;
+    }
+    let html = "<table style='width:100%;border-collapse:collapse;text-align:center;'><tr><th>Lettre</th>";
+    Object.keys(selectedAlphabet).forEach(l => {
+        html += `<td style="border:1px solid #ccc;padding:4px;">${l.toUpperCase()}</td>`;
+    });
+    html += "</tr><tr><th>Symbole</th>";
+    Object.values(selectedAlphabet).forEach(s => {
+        html += `<td style="border:1px solid #ccc;padding:4px;">${s}</td>`;
+    });
+    html += "</tr></table>";
+    previewDiv.innerHTML = html;
+}
+
+// Mettre à jour l'aperçu à chaque changement d'alphabet
+document.getElementById("alphabet").addEventListener("change", updateAlphabetPreview);
+// Mettre à jour au chargement initial
+updateAlphabetPreview();
+
+// Bouton pour copier le texte traduit
+document.getElementById("copyBtn").addEventListener("click", function() {
+    const output = document.getElementById("outputText");
+    output.select();
+    document.execCommand("copy");
+    this.textContent = "Copié !";
+    setTimeout(() => { this.textContent = "Copier le texte traduit"; }, 1500);
+});
     </script>
 </body>
 </html>
