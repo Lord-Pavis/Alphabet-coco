@@ -32,6 +32,11 @@
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+        textarea:focus {
+    outline: none;
+    box-shadow: 0 0 8px #007bff88;
+    transition: box-shadow 0.3s;
+}
         select {
             width: 100%;
             padding: 10px;
@@ -207,6 +212,29 @@ body.ultra-dark-mode {
   display: none; /* Caché par défaut */
 }
 
+@keyframes fadeInScale {
+    0% { opacity: 0; transform: scale(0.95);}
+    100% { opacity: 1; transform: scale(1);}
+}
+#alphabetPreview table {
+    animation: fadeInScale 0.5s cubic-bezier(.4,0,.2,1);
+}
+#alphabetPreview td, #alphabetPreview th {
+    transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+#alphabetPreview td:hover {
+    background: #007bff;
+    color: #fff;
+    transform: scale(1.15);
+    z-index: 1;
+    position: relative;
+}
+#copyBtn {
+    transition: background 0.3s, transform 0.2s;
+}
+#copyBtn:active {
+    transform: scale(0.95);
+}
     </style>
 </head>
 <body>
